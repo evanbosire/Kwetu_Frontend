@@ -1,0 +1,11 @@
+{
+  "user": [
+    {
+      "id": "admin",
+      "name": "Brian Bosire",
+      "email": "admin@gmail.com",
+      "password": "admin",
+      "phone": "0746462428"
+    }
+  ]
+}
