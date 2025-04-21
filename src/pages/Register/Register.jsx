@@ -6,7 +6,7 @@ import "./Register.scss";
 import axios from "axios";
 
 
-const base_url = "http://localhost:5000"
+const base_url = "https://kwetu-backend.onrender.com"
 
 const Register = () => {
   const [formData, setFormData] = useState({

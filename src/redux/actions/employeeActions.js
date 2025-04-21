@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const base_url = "http://localhost:5000"
+const base_url = "https://kwetu-backend.onrender.com"
 
 // Action types
 export const FETCH_EMPLOYEES = "FETCH_EMPLOYEES";

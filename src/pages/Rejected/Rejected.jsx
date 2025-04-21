@@ -6,7 +6,7 @@ import { ThreeDots } from "react-loader-spinner"; // Import the spinner
 import "./rejected.scss";
 
 const columns = ["_id", "customerName", "gender", "phone", "email", "location"];
-const base_url = "http://localhost:5000"
+const base_url = "https://kwetu-backend.onrender.com"
 
 function Rejected() {
   const [customers, setCustomers] = useState([]);

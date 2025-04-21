@@ -6,7 +6,7 @@ import "./dashboard.scss";
 import { useNavigate } from "react-router-dom";
 
 
-const base_url = "http://localhost:5000"
+const base_url = "https://kwetu-backend.onrender.com"
 
 function Dashboard() {
   const navigate = useNavigate();

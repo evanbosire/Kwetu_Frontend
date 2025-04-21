@@ -9,7 +9,7 @@ export const REACTIVATE_CUSTOMER = "REACTIVATE_CUSTOMER";
 export const SET_LOADING = "SET_LOADING";
 
 
-const base_url = "http://localhost:5000"
+const base_url = "https://kwetu-backend.onrender.com"
 export const fetchCustomers = (status) => async (dispatch) => {
   dispatch({ type: SET_LOADING, payload: true });
 

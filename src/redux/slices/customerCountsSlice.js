@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 
-const base_url = "http://localhost:5000"
+const base_url = "https://kwetu-backend.onrender.com"
 
 // Define the initial state of the slice
 const initialState = {

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner"; // Import the spinner
 import axios from "axios"; // Import axios
 
-const base_url = "http://localhost:5000"
+const base_url = "https://kwetu-backend.onrender.com"
 
 const counties = [
   "Bomet",

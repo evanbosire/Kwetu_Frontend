@@ -6,7 +6,7 @@ import "./Login.scss";
 import logo from "../../assets/images/logo.png"; // Import the logo
 
 
-const base_url = "http://localhost:5000"
+const base_url = "https://kwetu-backend.onrender.com"
 
 const Login = () => {
   const [formData, setFormData] = useState({
