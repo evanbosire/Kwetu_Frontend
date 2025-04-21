@@ -6,6 +6,7 @@ import { ThreeDots } from "react-loader-spinner"; // Import the spinner
 import "./rejected.scss";
 
 const columns = ["_id", "customerName", "gender", "phone", "email", "location"];
+const base_url = "http://localhost:5000"
 
 function Rejected() {
   const [customers, setCustomers] = useState([]);
@@ -18,7 +19,7 @@ function Rejected() {
       try {
         // Ensure the API URL is correct for production
         const response = await axios.get(
-          "https://kwetu-backend.onrender.com/api/customers/rejected"
+          `${base_url}/api/customers/rejected`
         );
         setCustomers(response.data);
       } catch (error) {
@@ -41,7 +42,7 @@ function Rejected() {
   const handlePending = async (id) => {
     try {
       await axios.patch(
-        `https://kwetu-backend.onrender.com/api/customers/revert/${id}`
+        `${base_url}/api/customers/revert/${id}`
       );
       // Filter out the reverted customer from the list
       setCustomers(customers.filter((customer) => customer._id !== id));

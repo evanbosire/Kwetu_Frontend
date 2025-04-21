@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner"; // Import the spinner
 import axios from "axios"; // Import axios
 
+const base_url = "http://localhost:5000"
+
 const counties = [
   "Bomet",
   "Bungoma",
@@ -90,7 +92,7 @@ const EmployeeForm = () => {
       }
 
       const response = await axios.post(
-        "https://kwetu-backend.onrender.com/api/employees",
+        `${base_url}/api/employees`,
         data,
         {
           headers: {

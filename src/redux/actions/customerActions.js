@@ -8,12 +8,14 @@ export const SUSPEND_CUSTOMER = "SUSPEND_CUSTOMER";
 export const REACTIVATE_CUSTOMER = "REACTIVATE_CUSTOMER";
 export const SET_LOADING = "SET_LOADING";
 
+
+const base_url = "http://localhost:5000"
 export const fetchCustomers = (status) => async (dispatch) => {
   dispatch({ type: SET_LOADING, payload: true });
 
   try {
     const response = await axios.get(
-      `https://kwetu-backend.onrender.com/api/customers/${status}`
+      `${base_url}/api/customers/${status}`
     );
     dispatch({
       type: FETCH_CUSTOMERS,
@@ -34,7 +36,7 @@ export const approveCustomer = (id) => async (dispatch) => {
       throw new Error("Customer ID is required.");
     }
     await axios.patch(
-      `https://kwetu-backend.onrender.com/api/customers/approve/${id}`
+      `${base_url}/api/customers/approve/${id}`
     );
     dispatch({ type: APPROVE_CUSTOMER, payload: id });
     dispatch(fetchCustomers("pending")); // Refetch pending customers
@@ -52,7 +54,7 @@ export const suspendCustomer = (id) => async (dispatch) => {
 
   try {
     const response = await axios.patch(
-      `https://kwetu-backend.onrender.com/api/customers/suspend/${id}`
+      `${base_url}/api/customers/suspend/${id}`
     );
     dispatch({ type: SUSPEND_CUSTOMER, payload: response.data });
 
@@ -73,7 +75,7 @@ export const reactivateCustomer = (id) => async (dispatch) => {
   try {
     // Make the PATCH request to reactivate the customer
     const response = await axios.patch(
-      `https://kwetu-backend.onrender.com/api/customers/reactivate/${id}`
+      `${base_url}/api/customers/reactivate/${id}`
     );
 
     // Dispatch the action to update the customer state in Redux
@@ -100,7 +102,7 @@ export const rejectCustomer = (id) => async (dispatch) => {
 
     // Make the PATCH request to reject the customer
     await axios.patch(
-      `https://kwetu-backend.onrender.com/api/customers/reject/${id}`
+      `${base_url}/api/customers/reject/${id}`
     );
 
     // Dispatch the action to update the customer state in Redux
@@ -123,7 +125,7 @@ export const revertRejectedCustomer = (id) => async (dispatch) => {
   try {
     if (!id) throw new Error("Customer ID is required.");
     await axios.patch(
-      `https://kwetu-backend.onrender.com/api/customers/revert/${id}`
+      `${base_url}/api/customers/revert/${id}`
     );
     dispatch({ type: REVERT_CUSTOMER, payload: id });
     dispatch(fetchCustomers("pending"));

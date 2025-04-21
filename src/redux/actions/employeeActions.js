@@ -1,5 +1,8 @@
 import axios from "axios";
 
+
+const base_url = "http://localhost:5000"
+
 // Action types
 export const FETCH_EMPLOYEES = "FETCH_EMPLOYEES";
 export const INACTIVATE_EMPLOYEE = "INACTIVATE_EMPLOYEE";
@@ -12,7 +15,7 @@ export const fetchEmployees = (status) => async (dispatch) => {
 
   try {
     const response = await axios.get(
-      `https://kwetu-backend.onrender.com/api/employees/${status}`
+      `${base_url}/api/employees/${status}`
     );
     dispatch({
       type: FETCH_EMPLOYEES,
@@ -36,7 +39,7 @@ export const inactivateEmployee = (id) => async (dispatch) => {
 
     // Make the PATCH request to inactivate employee
     await axios.patch(
-      `https://kwetu-backend.onrender.com/api/employees/inactivate/${id}`
+      `${base_url}/api/employees/inactivate/${id}`
     );
 
     // Dispatch the action to update the employee state in Redux
@@ -59,7 +62,7 @@ export const activateEmployee = (id) => async (dispatch) => {
   try {
     if (!id) throw new Error("Employee ID is required.");
     await axios.patch(
-      `https://kwetu-backend.onrender.com/api/employees/activate/${id}`
+      `${base_url}/api/employees/activate/${id}`
     );
     dispatch({ type: ACTIVATE_EMPLOYEE, payload: id });
     dispatch(fetchEmployees("active"));

@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Register.scss";
+import axios from "axios";
+
+
+const base_url = "http://localhost:5000"
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -115,8 +119,8 @@ const Register = () => {
     if (!validateForm()) return;
 
     try {
-      const response = await fetch(
-        "https://kwetu-backend.onrender.com/api/admin/register",
+      const response = await axios(
+        `${base_url}/api/admin/register`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

@@ -5,6 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 import "./Login.scss";
 import logo from "../../assets/images/logo.png"; // Import the logo
 
+
+const base_url = "http://localhost:5000"
+
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -64,7 +67,7 @@ const Login = () => {
 
     try {
       const response = await fetch(
-        "https://kwetu-backend.onrender.com/api/admin/login",
+        `${base_url}/api/admin/login`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

@@ -5,6 +5,9 @@ import axios from "axios"; // Import axios
 import "./dashboard.scss";
 import { useNavigate } from "react-router-dom";
 
+
+const base_url = "http://localhost:5000"
+
 function Dashboard() {
   const navigate = useNavigate();
   const [pending, setPending] = useState(0);
@@ -24,25 +27,25 @@ function Dashboard() {
       try {
         // Fetch pending customers
         const pendingResponse = await axios.get(
-          "https://kwetu-backend.onrender.com/api/customers/customer-counts/pending"
+          `${base_url}/api/customers/customer-counts/pending`
         );
         setPending(pendingResponse.data.pending);
 
         // Fetch active customers
         const activeResponse = await axios.get(
-          "https://kwetu-backend.onrender.com/api/customers/customer-counts/active"
+          `${base_url}/api/customers/customer-counts/active`
         );
         setActive(activeResponse.data.active);
 
         // Fetch suspended customers
         const suspendedResponse = await axios.get(
-          "https://kwetu-backend.onrender.com/api/customers/customer-counts/suspended"
+          `${base_url}/api/customers/customer-counts/suspended`
         );
         setSuspended(suspendedResponse.data.suspended);
 
         // Fetch rejected customers
         const rejectedResponse = await axios.get(
-          "https://kwetu-backend.onrender.com/api/customers/customer-counts/rejected"
+          `${base_url}/api/customers/customer-counts/rejected`
         );
         setRejected(rejectedResponse.data.rejected);
       } catch (error) {
