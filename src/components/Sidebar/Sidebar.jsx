@@ -126,11 +126,25 @@ function Sidebar({ isOpen, setIsSidebarOpen }) {
           {isReportsOpen && (
             <ul className="submenu">
               <Link
-                to={"/orders"}
+                to={"/bookingReports"}
                 className="custom-link"
                 onClick={handleLinkClick}
               >
-                <li>Orders</li>
+                <li>Booking Reports</li>
+              </Link>
+              <Link
+                to={"/paymentReports"}
+                className="custom-link"
+                onClick={handleLinkClick}
+              >
+                <li>Payments Reports</li>
+              </Link>
+              <Link
+                to={"/inventoryReports"}
+                className="custom-link"
+                onClick={handleLinkClick}
+              >
+                <li>Inventory Reports</li>
               </Link>
             </ul>
           )}

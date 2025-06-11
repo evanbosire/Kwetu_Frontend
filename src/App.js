@@ -14,6 +14,7 @@ import Register from "./pages/Register/Register";
 import { ToastContainer } from "react-toastify";
 import "./App.css";
 import { useState } from "react";
+import BookingTable from "./pages/bookingReports/booking";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -61,6 +62,7 @@ function App() {
                   element={<Inactiveemployee />}
                 />
                 <Route path="/addstaff" element={<Addstaff />} />
+                <Route path="/bookingReports" element={<BookingTable />} />
               </Routes>
             </div>
           </div>

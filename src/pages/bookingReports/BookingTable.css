@@ -1,0 +1,152 @@
+/* BookingTable.css */
+
+.booking-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top: 4px solid #4a90e2;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-text {
+  color: #dc3545;
+  margin-bottom: 16px;
+}
+
+.retry-button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.retry-button:hover {
+  background-color: #3a7bc8;
+}
+
+.table-header {
+  font-size: 24px;
+  color: #343a40;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.booking-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.table-header-row {
+  background-color: #4a90e2;
+  color: white;
+}
+
+.booking-table th {
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.first-column {
+  padding-left: 20px !important;
+  min-width: 220px;
+}
+
+.booking-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.even-row {
+  background-color: white;
+}
+
+.odd-row {
+  background-color: #f8f9fa;
+}
+
+.customer-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-table strong {
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 4px;
+}
+
+.booking-table small {
+  font-size: 13px;
+  color: #6c757d;
+}
+
+.centered-text {
+  text-align: center;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+  gap: 20px;
+}
+
+.pagination-button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  min-width: 100px;
+}
+
+.pagination-button:hover:not(.disabled) {
+  background-color: #3a7bc8;
+}
+
+.pagination-button.disabled {
+  background-color: #adb5bd;
+  cursor: not-allowed;
+}
+
+.page-info {
+  font-weight: 500;
+  color: #495057;
+  min-width: 100px;
+  text-align: center;
+}
