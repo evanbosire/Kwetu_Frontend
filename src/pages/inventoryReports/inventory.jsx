@@ -5,58 +5,24 @@ import './Inventory.css';
 const Inventory = () => {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [pagination, setPagination] = useState({
-    currentPage: 1,
-    totalPages: 1,
-    totalItems: 0,
-    itemsPerPage: 10
-  });
-  const [filters, setFilters] = useState({
-    supplier: '',
-    status: '',
-    paymentStatus: '',
-    startDate: '',
-    endDate: ''
-  });
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetchReports();
-  }, [pagination.currentPage, filters]);
+  }, []);
 
   const fetchReports = async () => {
     setLoading(true);
     try {
-      const params = {
-        page: pagination.currentPage,
-        limit: pagination.itemsPerPage,
-        ...(filters.supplier && { supplier: filters.supplier }),
-        ...(filters.status && { status: filters.status }),
-        ...(filters.paymentStatus && { paymentStatus: filters.paymentStatus }),
-        ...(filters.startDate && { startDate: filters.startDate }),
-        ...(filters.endDate && { endDate: filters.endDate })
-      };
-
-      const response = await axios.get('https://kwetu-backend.onrender.com/api/inventory/reports', {
-        params
-      });
-
+      const response = await axios.get('https://kwetu-backend.onrender.com/api/inventory/reports');
       if (response.data.success) {
         setReports(response.data.data);
-        setPagination(response.data.pagination);
       }
     } catch (error) {
       console.error('Error fetching reports:', error);
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleFilterChange = (key, value) => {
-    setFilters(prev => ({ ...prev, [key]: value }));
-  };
-
-  const handlePageChange = (newPage) => {
-    setPagination(prev => ({ ...prev, currentPage: newPage }));
   };
 
   const formatCurrency = (amount) => {
@@ -85,16 +51,12 @@ const Inventory = () => {
     }
   };
 
-  const clearFilters = () => {
-    setFilters({
-      supplier: '',
-      status: '',
-      paymentStatus: '',
-      startDate: '',
-      endDate: ''
-    });
-    setPagination(prev => ({ ...prev, currentPage: 1 }));
-  };
+  const filteredReports = reports.filter(report => 
+    report.supplier.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    report.item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (report.financial.paymentCode && 
+     report.financial.paymentCode.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
 
   if (loading) {
     return (
@@ -109,66 +71,15 @@ const Inventory = () => {
     <div className="inventory-container">
       <h1 className="inventory-title">Inventory Reports</h1>
       
-      {/* Filters */}
-      <div className="filters-section">
-        <div className="filter-group">
-          <label>Supplier</label>
-          <input
-            type="text"
-            value={filters.supplier}
-            onChange={(e) => handleFilterChange('supplier', e.target.value)}
-            placeholder="Filter by supplier"
-          />
-        </div>
-
-        <div className="filter-group">
-          <label>Status</label>
-          <select
-            value={filters.status}
-            onChange={(e) => handleFilterChange('status', e.target.value)}
-          >
-            <option value="">All Statuses</option>
-            <option value="stored">Stored</option>
-            <option value="supplied">Supplied</option>
-          </select>
-        </div>
-
-        <div className="filter-group">
-          <label>Payment Status</label>
-          <select
-            value={filters.paymentStatus}
-            onChange={(e) => handleFilterChange('paymentStatus', e.target.value)}
-          >
-            <option value="">All Payment Statuses</option>
-            <option value="paid">Paid</option>
-            <option value="unpaid">Unpaid</option>
-          </select>
-        </div>
-
-        <div className="filter-group">
-          <label>From</label>
-          <input
-            type="date"
-            value={filters.startDate}
-            onChange={(e) => handleFilterChange('startDate', e.target.value)}
-          />
-        </div>
-
-        <div className="filter-group">
-          <label>To</label>
-          <input
-            type="date"
-            value={filters.endDate}
-            onChange={(e) => handleFilterChange('endDate', e.target.value)}
-          />
-        </div>
-
-        <button className="apply-btn" onClick={fetchReports}>
-          Apply Filters
-        </button>
-        <button className="clear-btn" onClick={clearFilters}>
-          Clear Filters
-        </button>
+      {/* Search Bar */}
+      <div className="search-container">
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search by supplier, item name, or payment code..."
+          className="search-input"
+        />
       </div>
 
       {/* Inventory Table */}
@@ -176,7 +87,6 @@ const Inventory = () => {
         <table className="inventory-table">
           <thead>
             <tr>
-              <th>Request ID</th>
               <th>Supplier</th>
               <th>Date</th>
               <th>Item Name</th>
@@ -186,14 +96,11 @@ const Inventory = () => {
               <th>Total Price</th>
               <th>Payment Status</th>
               <th>Payment Code</th>
-              <th>Inventory Status</th>
-              <th>Feedback</th>
             </tr>
           </thead>
           <tbody>
-            {reports.map((report, index) => (
+            {filteredReports.map((report, index) => (
               <tr key={`${report.requestId}-${index}`}>
-                <td className="request-id">{report.requestId}</td>
                 <td>{report.supplier}</td>
                 <td>{formatDate(report.date)}</td>
                 <td>{report.item.name}</td>
@@ -211,41 +118,10 @@ const Inventory = () => {
                   </span>
                 </td>
                 <td>{report.financial.paymentCode || '-'}</td>
-                <td>
-                  <span className="status-badge" style={{ backgroundColor: getStatusColor(report.inventory.status) }}>
-                    {report.inventory.status}
-                  </span>
-                </td>
-                <td className="feedback-cell">{report.item.feedback}</td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
-
-      {/* Pagination */}
-      <div className="pagination-controls">
-        <button
-          onClick={() => handlePageChange(pagination.currentPage - 1)}
-          disabled={pagination.currentPage === 1}
-        >
-          Previous
-        </button>
-        
-        <span className="page-info">
-          Page {pagination.currentPage} of {pagination.totalPages}
-        </span>
-        
-        <button
-          onClick={() => handlePageChange(pagination.currentPage + 1)}
-          disabled={pagination.currentPage === pagination.totalPages}
-        >
-          Next
-        </button>
-        
-        <span className="total-items">
-          Total Items: {pagination.totalItems}
-        </span>
       </div>
     </div>
   );
