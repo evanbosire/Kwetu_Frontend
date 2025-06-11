@@ -64,7 +64,7 @@ const BookingTable = () => {
 
   return (
     <div className="booking-container">
-      <h2 className="table-header">Booking Records</h2>
+      <h2 className="table-header">Booking Report</h2>
       
       <div className="table-wrapper">
         <table className="booking-table">
@@ -95,7 +95,7 @@ const BookingTable = () => {
                   <small>ID: {booking.serviceId}</small>
                 </td>
                 <td className="centered-text">{booking.hours}h</td>
-                <td className="centered-text">${booking.totalPrice.toFixed(2)}</td>
+                <td className="centered-text">KES{booking.totalPrice.toFixed(2)}</td>
                 <td>
                   <small>{new Date(booking.bookingDate).toLocaleDateString()}</small>
                   <small>{new Date(booking.bookingDate).toLocaleTimeString()}</small>

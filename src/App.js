@@ -15,6 +15,8 @@ import { ToastContainer } from "react-toastify";
 import "./App.css";
 import { useState } from "react";
 import BookingTable from "./pages/bookingReports/booking";
+import Payments from "./pages/paymentReports/payments";
+import Inventory from "./pages/inventoryReports/inventory";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -63,6 +65,9 @@ function App() {
                 />
                 <Route path="/addstaff" element={<Addstaff />} />
                 <Route path="/bookingReports" element={<BookingTable />} />
+                <Route path="/paymentReports" element={<Payments />} />
+                <Route path="/inventoryReports" element={<Inventory />} />
+
               </Routes>
             </div>
           </div>
